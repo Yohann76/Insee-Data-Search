@@ -1,0 +1,6 @@
+/*
+" development " : {
+    " PORT " : 3000 ,
+    " DATABASE_URI " : " postgres: // user: secret @ localhost: 5432 / development " 
+ },
+ */
