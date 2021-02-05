@@ -9,7 +9,10 @@ CORS(app)
 
 @app.route("/greeting")
 def greeting():
-    return {"greeting": "Hello from Flask!"}
+    return {
+        "greeting": "Hello from Flask API !",
+        "greeting1": "Hello from Flask API1 !",
+    }
 
 #def indexCalcul():
     #db.create_all()

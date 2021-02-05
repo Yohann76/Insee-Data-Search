@@ -7,6 +7,8 @@
 </script>
 
 <template>
+
+
   <div id="nav">
       <router-link to="/">
         Home
@@ -17,6 +19,8 @@
 	  <br/><br/><br/><br/>
 	  {{ title }}
     </div>
+
+
 </template>
 
 <style>
