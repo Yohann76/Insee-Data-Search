@@ -17,7 +17,7 @@
         About
       </router-link>
 	  <br/><br/><br/><br/>
-	  {{ title }}
+
     </div>
 
 
