@@ -4,17 +4,19 @@ Clone this project:
 
     git clone https://github.com/Yohann76/Insee-Data-Search
 
-Run a npm server for vue
+In /webapp run a yarn server for vue
+    $ cd webapp
+    $ yarn install 
+    $ yarn serve
 
-    npm run serve
+available in : http://localhost:8081/
 
-go python api
+In /Api for flask api server
 
     cd api
-
-run flask api server
-
     flask run
+ 
+available in : http://127.0.0.1:5000/greeting ( exemple )
 
 
 flask is used for API branching, while vue.js is useful for separate front-end.
