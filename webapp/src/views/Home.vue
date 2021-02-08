@@ -6,7 +6,61 @@
     {{ APImessageGreeting }}
     <h1> IDS calculator </h1>
 
-    {{ InseeAPI }}
+    <h2> Recherche par numéro de Siren :  </h2>
+
+    <input v-model="Siren" placeholder="edit me">
+    <p>Siren is: {{ Siren }}</p>
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siren/005520135 -->
+
+
+    <h2> ensemble des centre de formations en Normandie <!-- Todo : create form for select activite and department--> </h2>
+    <!-- 
+    https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:85.59A)AND(codeCommuneEtablissement:[76000 TO 76999]) // formation adulte && 76 
+    -->
+
+    <!--
+    Domaine : 
+    <input v-model="Domaine" placeholder="edit me">
+    <p>Domaine is: {{ Domaine }}</p>
+
+    Numéro de département : 
+    <input v-model="departement" placeholder="edit me">
+    <p>département is: {{ departement }}</p>
+    -->
+
+  <div class="container"> 
+    <table class="table">
+      <tbody>
+        <div v-for="item in InseeAPI" :key="item">
+          <tr>
+            <th scope="row"> # </th>
+            <td>{{ item.siren }}</td>
+            <td>{{ item.siret }}</td>
+            <td>{{ item.uniteLegale.denominationUniteLegale }} </td>
+            <td>{{ item.adresseEtablissement.libelleCommuneEtablissement }} </td>
+            <td>{{ item.uniteLegale.activitePrincipaleUniteLegale }} </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+  </div>
+
+  {{ InseeAPI }}
+
+
+
+    <h2> Ensemble des entreprise FR dans la santé, avec un CA suppérieur à 120 Millions  </h2>
+    <!-- 
+      https://api.insee.fr/entreprises/sirene/V3/siret?q=activitePrincipaleUniteLegale:86.10Z  // activité = activités hospitalières
+    -->
+
+    <h2> PME dans un rayon de 300km de Fecamp qui ont + de 150 salarié </h2>
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siret?q=codeCommuneEtablissement:76400 -->
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siret?q=categorieEntreprise:PME --> <!-- Recherche par PME-->
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siret?q=trancheEffectifsUniteLegale:12  // nb salarié ?--> 
+
+    <!-- test all data-->
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siret?q=(categorieEntreprise:PME)AND(codeCommuneEtablissement:76400)&=trancheEffectifUniteLegal:11 -->
 
   </div>
 </template>
@@ -24,7 +78,10 @@ import axios from 'axios'
   data: function(){
       return {
           APImessageGreeting: '',
-          InseeAPI: ''
+          InseeAPI: '',
+          Domaine: '',
+          department: '',
+          Siren:'',
       }
   },
   methods: {
@@ -38,11 +95,11 @@ import axios from 'axios'
       this.APImessageGreeting = gObject.greeting; // greeting1 for other request in JSON
   },
   created: async function(){
-      console.log ("insee method as executed")
+     // console.log ("insee method as executed")
 
-     const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f '; // Token Test
-     const BASEURL = 'https://api.insee.fr/entreprises/sirene/V3/';
-     const ENDPOINT = '/siren';
+     const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f'; // Token Test
+     const BASEURL = 'https://api.insee.fr/entreprises/sirene/V3';
+     const ENDPOINT = '/siret?q=(activitePrincipaleUniteLegale:85.59A)AND(codeCommuneEtablissement:[76000 TO 76999])';
 
      axios.create({
            baseURL: BASEURL,
@@ -53,8 +110,10 @@ import axios from 'axios'
        })
        .get(ENDPOINT)
        .then(res => {
-               console.log(res.data.unitesLegales);
+               console.log(res.data.etablissements);
+               this.InseeAPI = res.data.etablissements
        });
+    
   },
 
   } // end export 

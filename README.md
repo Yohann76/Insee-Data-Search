@@ -5,6 +5,7 @@ Clone this project:
     git clone https://github.com/Yohann76/Insee-Data-Search
 
 In /webapp run a yarn server for vue
+
     $ cd webapp
     $ yarn install 
     $ yarn serve
@@ -13,8 +14,8 @@ available in : http://localhost:8081/
 
 In /Api for flask api server
 
-    cd api
-    flask run
+    $ cd api
+    $ flask run
  
 available in : http://127.0.0.1:5000/greeting ( exemple )
 
