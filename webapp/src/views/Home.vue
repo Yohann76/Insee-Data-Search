@@ -86,3 +86,11 @@ import axios from 'axios'
   },
   } // end export 
 </script>
+
+<style>
+
+.btn-info {
+  margin-left : 10px ; 
+}
+
+</style>

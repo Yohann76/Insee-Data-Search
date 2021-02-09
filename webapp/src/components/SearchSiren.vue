@@ -5,14 +5,15 @@
 
         <!-- siren form-->
         <form @submit.prevent="SearchSiren">
-            <input type="text" v-model="SirenData"> 
-            <button type="submit">
+            <input type="text" v-model="SirenData" class="form-control">
+            <br/> 
+            <button type="submit" class="btn btn-info">
                 Search
             </button>
         </form>
 
         <!-- display siren request -->
-
+        <br/> 
         <p>
             {{ SirenRes.categorieEntreprise }}  
             {{ SirenRes.dateCreationUniteLegale }}

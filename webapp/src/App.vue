@@ -14,7 +14,8 @@
 }
 
 #nav {
-  padding: 30px;
+  margin-top: 20px;
+  border-bottom : 3px green solid ; 
 
   a {
     font-weight: bold;

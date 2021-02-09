@@ -5,27 +5,27 @@
       
       <!-- select activity -->
       <p> Select activity </p>
-      <select v-model="selectedActivity">
+      <select v-model="selectedActivity" class="form-control">
         <option value="85.59A">Formation</option>
         <option value="86.10Z ">Santé</option>
       </select>
-  
+      <br/>
       <!-- Todo : select region -->
       <p> Select Departement</p>
-      <select v-model="selectedDepartment">
+      <select v-model="selectedDepartment" class="form-control">
         <option value="01">Ain</option>
         <option value="02">Aisne</option>
         <option value="03">Allier</option>
         <option value="04">Alpes-de-Haute-Provence</option>
         <option value="05">Hautes-Alpes</option>
       </select>
-  
+      <br/>
       <!-- submit-->
-      <button type="submit">
+      <button type="submit" class="btn btn-info">
           Search
       </button>
     </form>
-   
+    <br/>
     <!-- display request -> Search activity and region -->
 
     <div class="container"> 
@@ -90,3 +90,13 @@ import axios from 'axios'
 
   } // end export 
 </script>
+
+<style>
+
+.form-control {
+  width : 30% ; 
+  margin: auto; 
+ 
+}
+
+</style>
