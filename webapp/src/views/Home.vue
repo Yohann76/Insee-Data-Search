@@ -8,21 +8,22 @@
 
     <h2> Recherche par numéro de Siren :  </h2>
 
-    <!-- <input v-model="SirenData" placeholder="Siren"> 
-    <p>Siren is: {{ SirenData }}</p> --> 
-    <!-- <button v-click="sirenFormRequest">Search</button> -->
-
+    <!-- siren form-->
     <form @submit.prevent="SearchSiren">
       <input type="text" v-model="SirenData"> 
       <button type="submit">
           Search
       </button>
     </form>
-    <p>Siren is: {{ SirenData }}</p>  
-
-    {{ SirenRes }}
-     
+  
     <!-- https://api.insee.fr/entreprises/sirene/V3/siren/005520135 -->
+    <!-- display siren request -->
+    <p>
+      {{ SirenRes.categorieEntreprise }}  
+      {{ SirenRes.dateCreationUniteLegale }}
+    </p> 
+
+    <!-- <p>{{ SirenRes.periodesUniteLegale[0].activitePrincipaleUniteLegale }} </p> --> 
     
 
     <h2> Ensemble des centres de formations en Normandie <!-- Todo : create form for select activite and department--> </h2>
@@ -80,8 +81,8 @@ import axios from 'axios'
           InseeAPI: '',
           Domaine: '',
           department: '',
-          SirenData: '',
           SirenRes: '',
+          SirenData: '',
       }
   },
   methods: {
@@ -89,37 +90,21 @@ import axios from 'axios'
       console.log("testMethods");
     },
     SearchSiren: function() {
-      console.log(this.SirenData); 
+      const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f'; // Token Test
 
-     const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f'; // Token Test
-     const BASEURL = 'https://api.insee.fr/entreprises/sirene/V3';
-     const ENDPOINT =  '/{this.SirenData}';
-     
-     axios.create({
-           baseURL: BASEURL,
-           headers: {
-               'Content-Type': 'application/json',
-               'Authorization': 'Bearer '+TOKEN,
-               //'Access-Control-Allow-Origin': '*'
-           }
-       })
-       .get(ENDPOINT)
-       .then(res => {
-               console.log(res);
-               this.SirenRes = res
-       }
-    ); // end axios
-
-    
-      /*
-      axios.post('https://api.insee.fr/entreprises/sirene/V3/siren/{{SirenData}}', {SirenData: this.SirenData})
+      axios.get('https://api.insee.fr/entreprises/sirene/V3/siren/' +this.SirenData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+TOKEN,
+          },
+        })
         .then(res => {
-          // do something with res
+          this.SirenRes = res.data.uniteLegale;
+          console.log(this.SirenRes);
         })
         .catch(err => {
-          // catch error});
+          console.log("request non valide");
         })
-        */
     },
   }, // end methods
   createdtest: async function(){
@@ -139,13 +124,13 @@ import axios from 'axios'
            baseURL: BASEURL,
            headers: {
                'Content-Type': 'application/json',
-               'Authorization': 'Bearer '+TOKEN
+               'Authorization': 'Bearer '+TOKEN,
            }
        })
        .get(ENDPOINT)
        .then(res => {
                console.log(res.data.etablissements);
-               this.InseeAPI = res.data.etablissements
+               this.InseeAPI = res.data.etablissements;
        }
     ); // end axios
   }, // end created
