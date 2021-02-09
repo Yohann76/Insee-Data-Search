@@ -10,7 +10,7 @@
         <option value="86.10Z ">Santé</option>
       </select>
       <br/>
-      <!-- Todo : select region -->
+      <!-- select Departement -->
       <p> Select Departement</p>
       <select v-model="selectedDepartment" class="form-control">
         <option value="01">Ain</option>
@@ -20,11 +20,25 @@
         <option value="05">Hautes-Alpes</option>
       </select>
       <br/>
+
+      <!-- select Type entreprise -->
+      <p> Select Type entreprise</p>
+      <select v-model="selectedType" class="form-control">
+        <option value="PME">PME</option>
+        <option value="ETI">Entreprise taille intermédiaire</option>
+        <option value="GE">Grande entreprise</option>
+      </select>
+      <br/>
+
       <!-- submit-->
       <button type="submit" class="btn btn-info">
           Search
       </button>
     </form>
+    <br/>
+
+    Nombre d'entreprises : {{ nbResult  }}
+
     <br/>
     <!-- display request -> Search activity and region -->
 
@@ -58,7 +72,9 @@ import axios from 'axios'
       return {
           selectedActivity: '',
           selectedDepartment: '',
+          selectedType: '',
           ListSiretActivityDepartment : '', // result 
+          nbResult : '', // result 
       }
   },
   methods: {
@@ -71,7 +87,7 @@ import axios from 'axios'
       console.log(this.selectedActivity);
       console.log(this.selectedDepartment);
 
-      axios.get('https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:' +this.selectedActivity+')AND(codeCommuneEtablissement:['+this.selectedDepartment+'000 TO '+this.selectedDepartment+'999])', {
+      axios.get('https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:' +this.selectedActivity+')AND(codeCommuneEtablissement:['+this.selectedDepartment+'000 TO '+this.selectedDepartment+'999])AND(categorieEntreprise:'+this.selectedType+')', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+TOKEN,
@@ -80,6 +96,8 @@ import axios from 'axios'
         .then(res => {
           this.ListSiretActivityDepartment = res.data.etablissements;
           console.log(this.ListSiretActivityDepartment);
+
+          this.nbResult = res.data.header.nombre;
         })
         .catch(err => {
           console.log("request non valide");

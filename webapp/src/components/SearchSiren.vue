@@ -1,8 +1,5 @@
 <template>
     <div class="searchSiren">
-
-        <h2> Recherche par numéro de Siren :  </h2>
-
         <!-- siren form-->
         <form @submit.prevent="SearchSiren">
             <input type="text" v-model="SirenData" class="form-control">

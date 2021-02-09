@@ -5,13 +5,14 @@
    
     {{ APImessageGreeting }}
     <h1> IDS calculator </h1>
-
+    
+    <h2> Recherche par numéro de Siren :  </h2>
     <SearchSiren/> <!-- SearchSiren Component -->
     <!-- request -->
     <!-- https://api.insee.fr/entreprises/sirene/V3/siren/005520135 -->
 
-    <h2> Recherche par activité et département </h2>
 
+    <h2> Recherche par activité et département </h2>
     <SearchWithActivityAndDepartment/> <!-- SearchSiren Component -->
     <!-- request -->
     <!-- https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:85.59A)AND(codeCommuneEtablissement:[76000 TO 76999]) // formation adulte && 76 -->
@@ -48,35 +49,11 @@ import axios from 'axios'
   data: function(){
       return {
           APImessageGreeting: '',
-          selectedActivity: '',
-          selectedDepartment: '',
-          ListSiretActivityDepartment : '', // result 
       }
   },
   methods: {
-    SearchWithActivityAndRegion: function(){
-
-      console.log("SearchWithActivityAndRegion");
-      // axios request 
-      const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f';
-
-      console.log(this.selectedActivity);
-      console.log(this.selectedDepartment);
-
-      axios.get('https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:' +this.selectedActivity+')AND(codeCommuneEtablissement:['+this.selectedDepartment+'000 TO '+this.selectedDepartment+'999])', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN,
-          },
-        })
-        .then(res => {
-          this.ListSiretActivityDepartment = res.data.etablissements;
-          console.log(this.ListSiretActivityDepartment);
-        })
-        .catch(err => {
-          console.log("request non valide");
-        })
-      // end axios request 
+    methodsTest: function(){
+      console.log("MethodsTest");
     },
   }, // end methods
   created: async function(){
