@@ -7,86 +7,16 @@
     <h1> IDS calculator </h1>
 
     <SearchSiren/> <!-- SearchSiren Component -->
-   
-    <!--  ---------------------------- Search activity and region ---------------------------- -->
+    <!-- request -->
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siren/005520135 -->
 
-    <h2> Ensemble des centres de formations en Normandie </h2>
+    <h2> Recherche par activité et département </h2>
 
-    <h2> Recherche par activité et région :  </h2>
-
-    <form @submit.prevent="SearchWithActivityAndRegion">
-      
-      <!-- select activity -->
-      <p> Select activity </p>
-      <select v-model="selectedActivity">
-        <option value="85.59A">Formation</option>
-        <option value="86.10Z ">Santé</option>
-      </select>
-      <br/>
-      <br/>
-      <br/>
-      <!-- Todo : select region -->
-      <p> Select Departement</p>
-      <select v-model="selectedDepartment">
-        <option value="01">Ain</option>
-        <option value="02">Aisne</option>
-        <option value="03">Allier</option>
-        <option value="04">Alpes-de-Haute-Provence</option>
-        <option value="05">Hautes-Alpes</option>
-      </select>
-      <br/>
-      
-
-      <br/>
-      <br/>
-      <!-- submit-->
-      <button type="submit">
-          Search
-      </button>
-    </form>
-    <br/>
-
-    <!-- display request -->
-
-    <!-- {{ ListSiretActivityDepartment }} --> 
-        <div class="container"> 
-      <table class="table">
-        <tbody>
-          <div v-for="item in ListSiretActivityDepartment" :key="item">
-            <tr>
-              <th scope="row"> # </th>
-              <td>{{ item.siren }}</td>
-              <td>{{ item.siret }}</td>
-              <td>{{ item.uniteLegale.denominationUniteLegale }} </td>
-              <td>{{ item.adresseEtablissement.libelleCommuneEtablissement }} </td>
-              <td>{{ item.uniteLegale.activitePrincipaleUniteLegale }} </td>
-            </tr>
-          </div>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 
-    https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:85.59A)AND(codeCommuneEtablissement:[76000 TO 76999]) // formation adulte && 76 
-    -->
-
-    <div class="container"> 
-      <table class="table">
-        <tbody>
-          <div v-for="item in InseeAPI" :key="item">
-            <tr>
-              <th scope="row"> # </th>
-              <td>{{ item.siren }}</td>
-              <td>{{ item.siret }}</td>
-              <td>{{ item.uniteLegale.denominationUniteLegale }} </td>
-              <td>{{ item.adresseEtablissement.libelleCommuneEtablissement }} </td>
-              <td>{{ item.uniteLegale.activitePrincipaleUniteLegale }} </td>
-            </tr>
-          </div>
-        </tbody>
-      </table>
-    </div>
+    <SearchWithActivityAndDepartment/> <!-- SearchSiren Component -->
+    <!-- request -->
+    <!-- https://api.insee.fr/entreprises/sirene/V3/siret?q=(activitePrincipaleUniteLegale:85.59A)AND(codeCommuneEtablissement:[76000 TO 76999]) // formation adulte && 76 -->
     
+
     <h2> Ensemble des entreprises FR dans la santé, avec un CA suppérieur à 120 Millions  </h2>
     <!-- 
       https://api.insee.fr/entreprises/sirene/V3/siret?q=activitePrincipaleUniteLegale:86.10Z  // activité = activités hospitalières
@@ -105,6 +35,7 @@
 // @ is an alias to /src
 import BaseComponent from '../components/BaseComponent.vue'
 import SearchSiren from '../components/SearchSiren.vue'
+import SearchWithActivityAndDepartment from '../components/SearchWithActivityAndDepartment.vue'
 import axios from 'axios'
 
   export default {
@@ -112,20 +43,17 @@ import axios from 'axios'
     components: {
       BaseComponent,
       SearchSiren,
+      SearchWithActivityAndDepartment,
     },
   data: function(){
       return {
           APImessageGreeting: '',
-          InseeAPI: '', // result request api test
           selectedActivity: '',
           selectedDepartment: '',
           ListSiretActivityDepartment : '', // result 
       }
   },
   methods: {
-    testMethods(e) {
-      console.log("testMethods");
-    },
     SearchWithActivityAndRegion: function(){
 
       console.log("SearchWithActivityAndRegion");
@@ -149,38 +77,12 @@ import axios from 'axios'
           console.log("request non valide");
         })
       // end axios request 
-
-
     },
   }, // end methods
-  createdtest: async function(){
+  created: async function(){
       const gResponse = await fetch("http://localhost:5000/greeting");
       const gObject = await gResponse.json();
       this.APImessageGreeting = gObject.greeting; // greeting1 for other request in JSON
   },
-  // methods for get siren : region && activity
-  createdDemo: async function(){
-     console.log ("IDS")
-     /*
-     const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f'; // Token Test
-     const BASEURL = 'https://api.insee.fr/entreprises/sirene/V3';
-     const ENDPOINT = '/siret?q=(activitePrincipaleUniteLegale:85.59A)AND(codeCommuneEtablissement:[76000 TO 76999])';
-
-     axios.create({
-           baseURL: BASEURL,
-           headers: {
-               'Content-Type': 'application/json',
-               'Authorization': 'Bearer '+TOKEN,
-           }
-       })
-       .get(ENDPOINT)
-       .then(res => {
-               console.log(res.data.etablissements);
-               this.InseeAPI = res.data.etablissements;
-       }
-    ); // end axios
-    */
-  }, // end created
-  
   } // end export 
 </script>

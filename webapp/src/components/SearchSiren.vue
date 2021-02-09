@@ -11,7 +11,6 @@
             </button>
         </form>
 
-        <!-- https://api.insee.fr/entreprises/sirene/V3/siren/005520135 -->
         <!-- display siren request -->
 
         <p>
