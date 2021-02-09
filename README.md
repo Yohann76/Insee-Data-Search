@@ -4,7 +4,7 @@ Clone this project:
 
     git clone https://github.com/Yohann76/Insee-Data-Search
 
-In /webapp run a yarn server for vue
+Run node server use yarn for vue.js parts
 
     $ cd webapp
     $ yarn install 
@@ -12,15 +12,15 @@ In /webapp run a yarn server for vue
 
 available in : http://localhost:8081/
 
-In /Api for flask api server
+In /api for flask api server
 
     $ cd api
     $ flask run
  
-available in : http://127.0.0.1:5000/greeting ( exemple )
+available in : http://127.0.0.1:5000/greeting ( example )
 
 
-flask is used for API branching, while vue.js is useful for separate front-end.
+flask is used for API request, while vue.js is useful for separate front-end.
 
 # How to use postgres SQL database ?
 
