@@ -6,30 +6,8 @@
     {{ APImessageGreeting }}
     <h1> IDS calculator </h1>
 
-    <!--  ---------------------------- Search SIREN ---------------------------- -->
-    <h2> Recherche par numéro de Siren :  </h2>
-
-    <!-- siren form-->
-    <form @submit.prevent="SearchSiren">
-      <input type="text" v-model="SirenData"> 
-      <button type="submit">
-          Search
-      </button>
-    </form>
-
-    <!-- https://api.insee.fr/entreprises/sirene/V3/siren/005520135 -->
-    <!-- display siren request -->
-
-    <p>
-      {{ SirenRes.categorieEntreprise }}  
-      {{ SirenRes.dateCreationUniteLegale }}
-    </p> 
-    <!-- <p>{{ SirenRes.periodesUniteLegale[0].activitePrincipaleUniteLegale }} </p> --> 
-
-
-    <!--  ---------------------------- End Search SIREN ---------------------------- -->
-
-
+    <SearchSiren/> <!-- SearchSiren Component -->
+   
     <!--  ---------------------------- Search activity and region ---------------------------- -->
 
     <h2> Ensemble des centres de formations en Normandie </h2>
@@ -45,17 +23,19 @@
         <option value="86.10Z ">Santé</option>
       </select>
       <br/>
-      <span>Sélectionné : {{ selectedActivity }}</span>
       <br/>
       <br/>
       <!-- Todo : select region -->
       <p> Select Departement</p>
-      <select v-model="selectedRegion">
-        <option value="76">Normandie</option>
-        <option value="16">Bretagne</option>
+      <select v-model="selectedDepartment">
+        <option value="01">Ain</option>
+        <option value="02">Aisne</option>
+        <option value="03">Allier</option>
+        <option value="04">Alpes-de-Haute-Provence</option>
+        <option value="05">Hautes-Alpes</option>
       </select>
       <br/>
-      <span>Sélectionné : {{ selectedRegion }}</span>
+      
 
       <br/>
       <br/>
@@ -124,19 +104,19 @@
 <script>
 // @ is an alias to /src
 import BaseComponent from '../components/BaseComponent.vue'
+import SearchSiren from '../components/SearchSiren.vue'
 import axios from 'axios'
 
   export default {
     name: 'Home',
     components: {
-      BaseComponent
+      BaseComponent,
+      SearchSiren,
     },
   data: function(){
       return {
           APImessageGreeting: '',
           InseeAPI: '', // result request api test
-          SirenRes: '', // result siren request 
-          SirenData: '',
           selectedActivity: '',
           selectedDepartment: '',
           ListSiretActivityDepartment : '', // result 
@@ -145,23 +125,6 @@ import axios from 'axios'
   methods: {
     testMethods(e) {
       console.log("testMethods");
-    },
-    SearchSiren: function() {
-      const TOKEN = '17e30c48-3d17-394d-b224-72611bcab21f'; // Token Test
-
-      axios.get('https://api.insee.fr/entreprises/sirene/V3/siren/' +this.SirenData, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+TOKEN,
-          },
-        })
-        .then(res => {
-          this.SirenRes = res.data.uniteLegale;
-          console.log(this.SirenRes);
-        })
-        .catch(err => {
-          console.log("request non valide");
-        })
     },
     SearchWithActivityAndRegion: function(){
 
