@@ -3,12 +3,12 @@
         <!-- siren form-->
         <form @submit.prevent="SearchSiren">
             <input type="text" v-model="SirenData" class="form-control">
-            <br/> 
+            <br/> <br/>
             <button type="submit" class="btn btn-info">
                 Search
             </button>
         </form>
-
+        <br/>
         <!-- display siren request -->
         <br/> 
         <p>
@@ -21,7 +21,6 @@
 
 <script>
 // @ is an alias to /src
-import BaseComponent from '../components/BaseComponent.vue'
 import axios from 'axios'
 
   export default {
@@ -54,3 +53,13 @@ import axios from 'axios'
   
   } // end export 
 </script>
+
+<style>
+
+.form-control {
+  width : 30% ; 
+  margin: auto; 
+ 
+}
+
+</style>

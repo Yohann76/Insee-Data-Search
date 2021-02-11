@@ -1,6 +1,5 @@
 <template>
   <div class="SearchWithActivityAndDepartment">
-
     <form @submit.prevent="SearchWithActivityAndRegion">
       
       <!-- select activity -->
@@ -126,6 +125,7 @@ import axios from 'axios'
           console.log("request non valide");
           this.infoRequest = 'Aucun établissement à été trouvé'
           this.ListSiretActivityDepartment = '';
+          this.nbResult = '0';
         })
       // end axios request 
     }, // end function
