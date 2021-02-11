@@ -11,11 +11,39 @@
         <br/>
         <!-- display siren request -->
         <br/> 
-        <p>
-            {{ SirenRes.categorieEntreprise }}  
-            {{ SirenRes.dateCreationUniteLegale }}
-        </p> 
-        <!-- <p>{{ SirenRes.periodesUniteLegale[0].activitePrincipaleUniteLegale }} </p> --> 
+    
+        <div id="accordion">
+
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <!-- {{ item.uniteLegale.denominationUniteLegale }} -->
+                  {{ SirenRes.siren }}
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+              <div class="card-body">
+                <p> Siren : {{ SirenRes.categorieEntreprise }}   </p> <br/>
+                <p> Date création : {{ SirenRes.dateCreationUniteLegale }}  </p> <br/>
+                <p> Tranche Effectifs :{{ SirenRes.trancheEffectifsUniteLegale }} </p> <br/>
+
+                <!-- <p> Numéro D'activité : {{ SirenRes.periodesUniteLegale[0].activitePrincipaleUniteLegale }} </p> -->
+
+                <!-- <p> Dénomination :{{ SirenRes.periodesUniteLegale[0].denominationUniteLegale }} </p> <br/> --> 
+                 
+                <!-- Siren Ex : 779311604 -->
+                <br/>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      
     </div>
 </template>
 

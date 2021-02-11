@@ -7,6 +7,7 @@
       <select v-model="selectedActivity" class="form-control">
         <option value="85.59A">Formation</option>
         <option value="86.10Z ">Santé</option>
+        <option value="NAP600">testOptionActivity</option>
       </select>
       <br/>
       <!-- select Departement -->
@@ -94,11 +95,21 @@
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 
               <div class="card-body">
-                <p> siren : {{ item.siren }} </p> <br/>
-                <p> siret : {{ item.siret }} </p> <br/>
-                <p> Nom : {{ item.uniteLegale.denominationUniteLegale }} </p> <br/>
+                <p> Siren : {{ item.siren }} </p> <br/>
+                <p> Siret : {{ item.siret }} </p> <br/>
+                <p> Dénomination : {{ item.uniteLegale.denominationUniteLegale }} </p> <br/>
                 <p> Libelle Commune : {{ item.adresseEtablissement.libelleCommuneEtablissement }}</p> <br/>
-                <p> Activité Principale : {{ item.uniteLegale.activitePrincipaleUniteLegale }} </p> <br/>
+                <p> Numéro Activité Principale : {{ item.uniteLegale.activitePrincipaleUniteLegale }} </p> <br/>
+
+                <p> Adresse Etablissement : 
+                {{ item.adresseEtablissement.numeroVoieEtablissement }} 
+                {{ item.adresseEtablissement.typeVoieEtablissement }} 
+                {{ item.adresseEtablissement.libelleVoieEtablissement }} 
+                {{ item.adresseEtablissement.libelleCommuneEtablissement }} 
+                {{ item.adresseEtablissement.codePostalEtablissement }} 
+                </p> <br/>
+
+                
               </div>
 
             </div>
