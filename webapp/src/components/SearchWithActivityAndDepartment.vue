@@ -17,6 +17,16 @@
         <option value="03">Allier</option>
         <option value="04">Alpes-de-Haute-Provence</option>
         <option value="05">Hautes-Alpes</option>
+        <option value="06">Alpes-Maritimes</option>
+        <option value="07">Ardèche</option>
+        <option value="08">Ardennes</option>
+        <option value="09">Ariège</option>
+        <option value="10">Aube</option>
+        <option value="11">Aude</option>
+        <option value="12">Aveyron</option>
+        <option value="13">Bouches-du-Rhône</option>
+        <option value="14">Calvados</option>
+        <option value="15">Cantal</option>
       </select>
       <br/>
 
@@ -65,23 +75,42 @@
     {{ infoRequest }}
 
     <div class="container"> 
-      <table class="table">
-        <tbody>
-          <div v-for="item in ListSiretActivityDepartment" :key="item">
-            <tr>
-              <th scope="row"> # </th>
-              <td>{{ item.siren }}</td>
-              <td>{{ item.siret }}</td>
-              <td>{{ item.uniteLegale.denominationUniteLegale }} </td>
-              <td>{{ item.adresseEtablissement.libelleCommuneEtablissement }} </td>
-              <td>{{ item.uniteLegale.activitePrincipaleUniteLegale }} </td>
-            </tr>
-          </div>
-        </tbody>
-      </table>
-    </div>
 
-  </div> <!-- end div -->
+      <div v-for="item in ListSiretActivityDepartment" :key="item">
+
+        <!-- test -->
+        <div id="accordion">
+
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <!-- {{ item.uniteLegale.denominationUniteLegale }} -->
+                  {{ item.siren }}
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+              <div class="card-body">
+                <p> siren : {{ item.siren }} </p> <br/>
+                <p> siret : {{ item.siret }} </p> <br/>
+                <p> Nom : {{ item.uniteLegale.denominationUniteLegale }} </p> <br/>
+                <p> Libelle Commune : {{ item.adresseEtablissement.libelleCommuneEtablissement }}</p> <br/>
+                <p> Activité Principale : {{ item.uniteLegale.activitePrincipaleUniteLegale }} </p> <br/>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <br/><br/>
+      </div>
+
+    </div> <!-- end container -->
+
+  </div> <!-- end div  SearchWithActivityAndDepartment-->
 </template>
 
 <script>
@@ -140,6 +169,15 @@ import axios from 'axios'
   width : 30% ; 
   margin: auto; 
  
+}
+
+#headingOne {
+  background-color: #17a2b8;
+  
+}
+
+.btn-link {
+  color : white; 
 }
 
 </style>
